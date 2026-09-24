@@ -1,0 +1,147 @@
+{
+  "id": "netlist-double-chamber",
+  "title": "网表双影室：SPICE 子电路展开、参数作用域与连接等价",
+  "tops": ["top_a.sp", "top_b.sp"],
+  "files": [
+    "top_a.sp", "top_b.sp", "cells.inc", "cells_alt.inc",
+    "models.inc", "loop_a.inc", "loop_b.inc"
+  ],
+  "steps": [
+    {
+      "id": "s01", "action": "import", "actor": "importer",
+      "narration": "导入两份 SPICE 网表与 include/model 集：原文本、行续接、子电路实例、参数表达式、model 版本、include 来源、单位后缀均不改写"
+    },
+    {
+      "id": "s02", "action": "decide", "kind": "review.accept", "actor": "reviewer-li",
+      "narration": "审阅者核对基线：原始表示未改写，接受基线",
+      "note": "baseline-verified"
+    },
+    {
+      "id": "s03", "action": "adjust-param", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "stmtLine": 5, "param": "wp", "newExpr": "{wn_b*3}",
+      "narration": "参数修订：B 侧 Xu2 的 wp 改为 {wn_b*3}，应出现最小不等价子图"
+    },
+    {
+      "id": "s04", "action": "decide", "kind": "review.reject", "actor": "reviewer-wang",
+      "targetEventIdRef": "s03",
+      "narration": "否决该参数修订（未采纳结果保留在档案中）",
+      "note": "over-aggressive"
+    },
+    {
+      "id": "s05", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "top_b.sp",
+      "narration": "按裁定恢复 B 侧原文"
+    },
+    {
+      "id": "s06", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "variants/top_b.local_dep.sp",
+      "narration": "只影响局部依赖的源数据改动：wn_b 1u→1.1u，重算应只波及依赖链"
+    },
+    {
+      "id": "s07", "action": "concurrent",
+      "narration": "两位使用者从同一版本做出互相冲突的人工决定",
+      "pair": [
+        { "actor": "reviewer-li", "kind": "review.accept", "payload": { "note": "accept-local-dep" } },
+        { "actor": "reviewer-wang", "kind": "review.reject", "payload": { "note": "reject-local-dep" } }
+      ]
+    },
+    {
+      "id": "s08", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "top_b.sp",
+      "narration": "冲突裁定后恢复 B 侧原文（未选候选仍保留在分支上）"
+    },
+    {
+      "id": "s09", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_a_sp", "variant": "variants/top_a.alt_include.sp",
+      "counterexample": "subckt-collision", "name": "子电路重名",
+      "narration": "边界：引入 cells_alt.inc，inv 子电路重名，首个生效、其余保留并诊断"
+    },
+    {
+      "id": "s10", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_a_sp", "variant": "top_a.sp",
+      "narration": "恢复 A 侧原文"
+    },
+    {
+      "id": "s11", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "variants/top_b.unit_suffix.sp",
+      "counterexample": "unit-suffix", "name": "单位后缀与不可转换值",
+      "narration": "边界：1.0k/1e-12 规范化等价；abc 不可转换，留在原位置并附诊断"
+    },
+    {
+      "id": "s12", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "top_b.sp",
+      "narration": "恢复 B 侧原文"
+    },
+    {
+      "id": "s13", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_a_sp", "variant": "variants/top_a.with_loop.sp",
+      "counterexample": "include-cycle", "name": "循环 include",
+      "narration": "边界：loop_a ↔ loop_b 循环 include，保留来源关系并诊断，不递归展开"
+    },
+    {
+      "id": "s14", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_a_sp", "variant": "top_a.sp",
+      "narration": "恢复 A 侧原文"
+    },
+    {
+      "id": "s15", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "variants/top_b.mos_swap.sp",
+      "counterexample": "symmetric-permutation", "name": "对称器件置换",
+      "narration": "边界：M1 的 D/S 对调，对称器件置换下仍等价"
+    },
+    {
+      "id": "s16", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "variants/top_b.unknown.sp",
+      "counterexample": "unknown-element", "name": "未知元件",
+      "narration": "边界：Y1 未知元件保留 opaque 连接而不删除"
+    },
+    {
+      "id": "s17", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_a_sp", "variant": "variants/top_a.unknown.sp",
+      "narration": "A 侧补上对应未知元件，opaque 对等有关"
+    },
+    {
+      "id": "s18", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_a_sp", "variant": "top_a.sp",
+      "narration": "恢复 A 侧原文"
+    },
+    {
+      "id": "s19", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "top_b.sp",
+      "narration": "恢复 B 侧原文"
+    },
+    {
+      "id": "s20", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "variants/top_b.multi_diff.sp",
+      "counterexample": "multi-minimal-diff", "name": "多个最小差异",
+      "narration": "边界：R 值变化 + 新增电容，应给出多个最小不等价子图"
+    },
+    {
+      "id": "s21", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "top_b.sp",
+      "narration": "恢复 B 侧原文"
+    },
+    {
+      "id": "s22", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "variants/top_b.alpha.sp",
+      "counterexample": "alpha-rename", "name": "整表 alpha-rename",
+      "narration": "第二分支：节点与实例全部重命名，等价性应保持"
+    },
+    {
+      "id": "s23", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "variants/top_b.scope_flat.sp",
+      "counterexample": "scope-dependency", "name": "压平表达式依赖",
+      "narration": "第二分支：wp={wn_b*2} 被压平为字面量 2u，数值相等但依赖不可压平，应留下判断事件"
+    },
+    {
+      "id": "s24", "action": "mutate", "actor": "reviewer-li",
+      "sourceId": "src:top_b_sp", "variant": "top_b.sp",
+      "narration": "恢复 B 侧原文，回到等价基线"
+    },
+    {
+      "id": "s25", "action": "decide", "kind": "review.accept", "actor": "reviewer-lead",
+      "narration": "最终复核：沿层次树/展平图/节点对应/参数来源/最小不等价子图路径确认等价",
+      "note": "final-signoff"
+    }
+  ]
+}
