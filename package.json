@@ -1,0 +1,25 @@
+{
+  "name": "netlist-shadow-room",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "网表双影室：SPICE 子电路展开、参数作用域与连接等价的离线审阅系统",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit",
+    "seed": "tsx src/cli/seed.ts",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^22.5.0",
+    "tsx": "^4.19.0",
+    "vite": "^5.4.0",
+    "vitest": "^2.1.0"
+  }
+}
