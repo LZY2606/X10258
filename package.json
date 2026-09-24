@@ -1,0 +1,12 @@
+{
+  "name": "netlist-double-shadow-room",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "SPICE hierarchical netlist semantic equivalence review room",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "test": "vitest"
+  }
+}
