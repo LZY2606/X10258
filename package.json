@@ -1,0 +1,19 @@
+{
+  "name": "spice-dual-shadow",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "网表双影室：SPICE 子电路展开、参数作用域与连接等价审阅系统",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "typescript": "~5.7.2",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  }
+}
