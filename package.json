@@ -1,0 +1,23 @@
+{
+  "name": "spice-double-shadow",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "网表双影室：SPICE 子电路展开、参数作用域与连接等价",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-sqlite vitest run",
+    "dev": "NODE_OPTIONS=--experimental-sqlite vite --host 127.0.0.1"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}
