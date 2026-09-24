@@ -1,0 +1,19 @@
+{
+  "name": "netlist-dual-chamber",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "网表双影室：SPICE 子电路展开、参数作用域与连接等价的可追溯审阅",
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.3.5",
+    "vitest": "^3.1.4"
+  }
+}
