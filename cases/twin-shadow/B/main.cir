@@ -1,0 +1,10 @@
+* Right twin baseline: root node names differ, scalar spellings differ
+.INC ./inc/models.cir
+.INC ./inc/cycle-a.cir
+.PARAM TEMP_GAIN=4
+U1 IN_A BIAS_A VDD_A 0 OUT_A AMP RP='10k' GAIN='TEMP_GAIN+0' WIDTH='4u'
+U2 IN_B BIAS_B VDD_B 0 OUT_B AMP WIDTH='4000n' RP=10000 GAIN=4
+RL OUT_A 0 0.02Meg
+CL OUT_A 0 2000f
+.MODEL NMOS NMOS VERSION=2024.1 LEVEL=7
+.MODEL PMOS PMOS VERSION=2024.1 LEVEL=7

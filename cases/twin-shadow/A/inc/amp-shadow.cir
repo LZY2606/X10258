@@ -1,0 +1,6 @@
+* Same simple name in a later include; source-qualified identity must not overwrite the first.
+.SUBCKT AMP A B VDD VSS OUT GAIN=2 RP=9k
+RP A SHADOW RP
+QSH OUT SHADOW VSS NMOS W=8u L=0.18u
+.MODEL NMOS NMOS LEVEL=7 VERSION=2024.1
+.ENDS AMP

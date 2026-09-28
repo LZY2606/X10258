@@ -1,0 +1,13 @@
+* A amplifier definition
+.SUBCKT AMP A B VDD VSS OUT GAIN=2 RP=10k
++ WIDTH=4u
+RP A MID RP
+* Symmetric pair: leaf order may differ but terminals are tied to the same pair.
+RPA MID P 1k
+RPB MID P 1k
+QP OUT P VSS NMOS W='GAIN*2u' L=0.18u
+QN OUT MID VDD PMOS W='GAIN*1u' L=0.18u
+ZUNK A B OUT MYPROP='RP/2'
+.MODEL NMOS NMOS LEVEL=7 VERSION=2024.1
+.MODEL PMOS PMOS LEVEL=7 VERSION=2024.1
+.ENDS AMP

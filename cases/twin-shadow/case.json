@@ -1,0 +1,43 @@
+{
+  "id": "spice-twin-shadow",
+  "title": "网表双影室：SPICE 子电路展开、参数作用域与连接等价",
+  "ruleVersion": "spice-shadow-rules@1.0.0",
+  "unitBasis": "all scalar quantities retain raw SPICE representation; normalized values carry SI unit metadata",
+  "coordinateBasis": "flattened node identity is hierarchical path-local-name, not canvas coordinate",
+  "baseline": {
+    "left": "A/main.cir",
+    "right": "B/main.cir"
+  },
+  "stages": [
+    {
+      "id": "stage-1-param-revision",
+      "label": "参数修订",
+      "left": "A/main-stage1.cir",
+      "right": "B/main-stage1.cir",
+      "directSourceId": "param-revision"
+    },
+    {
+      "id": "stage-2-local-dependency",
+      "label": "局部依赖源数据改动",
+      "left": "A/main-stage2.cir",
+      "right": "B/main-stage2.cir",
+      "directSourceId": "local-rp2"
+    },
+    {
+      "id": "stage-3-conflicting-decisions",
+      "label": "互相冲突的人工决定",
+      "left": "A/main-stage2.cir",
+      "right": "B/main-stage2.cir",
+      "directSourceId": "decision-conflict"
+    }
+  ],
+  "requiredSituations": [
+    "subcircuit-name-shadowing",
+    "local-parameter-override",
+    "unit-suffixes",
+    "cyclic-include",
+    "symmetric-device-permutation",
+    "unknown-element",
+    "multiple-minimal-differences"
+  ]
+}

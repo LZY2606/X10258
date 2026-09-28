@@ -1,0 +1,2 @@
+.INC ./cycle-b.cir
+PARAM CYCLE_A_TOKEN=1

@@ -1,0 +1,3 @@
+* Deliberate include cycle. It must be diagnosed, not expanded forever.
+.INC ./cycle-b.cir
+PARAM CYCLE_A_TOKEN=1

@@ -1,0 +1,10 @@
+* Right twin remains at stage 1 gain, while local RP2 differs in the other twin
+.INC ./inc/models.cir
+.INC ./inc/cycle-a.cir
+.PARAM TEMP_GAIN=5
+U1 IN_A BIAS_A VDD_A 0 OUT_A AMP RP='10k' GAIN='TEMP_GAIN+0' WIDTH='4u'
+U2 IN_B BIAS_B VDD_B VSS_B OUT_B AMP WIDTH='4000n' RP=12000 GAIN=4
+RL OUT_A VSS_B 0.02Meg
+CL OUT_A VSS_B 2000f
+.MODEL NMOS NMOS VERSION=2024.1 LEVEL=7
+.MODEL PMOS PMOS VERSION=2024.1 LEVEL=7
