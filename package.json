@@ -1,0 +1,19 @@
+{
+  "name": "netlist-double-shadow",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "网表双影室：SPICE 子电路展开、参数作用域与连接等价",
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "build:case": "node --experimental-strip-types scripts/build-archive.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "vitest": "^3.0.5"
+  }
+}
